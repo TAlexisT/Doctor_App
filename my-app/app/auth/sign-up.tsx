@@ -1,21 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import { db } from '../../constants/firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
 
 function SignUpScreen() {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
+
+    const isValidEmail = (email: string): boolean => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    };
+    
+    const onSignUp = async () => {
+        if (!isValidEmail(email)) {
+            Alert.alert("Error", "Por favor ingresa un correo electrónico válido");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert("Error", "Las contraseñas no coinciden");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, 'usuarios'), {
+                username,
+                email,
+                phone,
+                password,
+            });
+            Alert.alert('Éxito', 'Cuenta creada exitosamente');
+            router.push('../auth/sign-in');
+        } catch (error) {
+            Alert.alert('Error', 'Hubo un problema al crear la cuenta');
+            console.error("Error al agregar documento: ", error);
+        }
+    };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Create Account</Text>
-            <TextInput style={styles.input} placeholder="Username" />
-            <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
-            <TextInput style={styles.input} placeholder="Phone" keyboardType="phone-pad" />
-            <TextInput style={styles.input} placeholder="Password" secureTextEntry={true} />
-            <TextInput style={styles.input} placeholder="Confirm Password" secureTextEntry={true} />
-            <Button title="Sign Up" onPress={() => Alert.alert('Account created')} />
+            <Text style={styles.title}>Crear Cuenta</Text>
+            <TextInput style={styles.input} placeholder="Nombre de usuario" value={username} onChangeText={setUsername} />
+            <TextInput style={styles.input} placeholder="Correo electrónico" keyboardType="email-address" value={email} onChangeText={setEmail} />
+            <TextInput style={styles.input} placeholder="Teléfono" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
+            <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry={true} value={password} onChangeText={setPassword} />
+            <TextInput style={styles.input} placeholder="Confirmar contraseña" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
+            <Button title="Registrarse" onPress={onSignUp} />
             <TouchableOpacity onPress={() => router.push('../auth/sign-in')}>
-                <Text style={styles.link}>Already have an account? Sign In!</Text>
+                <Text style={styles.link}>¿Ya tienes cuenta? Iniciar sesión</Text>
             </TouchableOpacity>
         </View>
     );
