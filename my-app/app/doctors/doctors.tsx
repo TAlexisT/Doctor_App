@@ -16,23 +16,6 @@ const Inicio = () => {
 
   return (
     <>
-      {/* Encabezado superior con texto e iconos */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.headerTextTop}>Find Your</Text>
-          <Text style={styles.headerTextBottom}>Specialist</Text>
-        </View>
-        <View style={styles.headerIcons}>
-          <TouchableOpacity onPress={() => router.push('../search')}>
-            <FontAwesome name="search" size={24} color="#1E90FF" style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('../messages')}>
-            <MaterialIcons name="chat" size={24} color="#1E90FF" style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* Barra de navegación inferior */}
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, size }) => (
@@ -44,8 +27,8 @@ const Inicio = () => {
               ]}
               onPress={() => {
                 switch (route.name) {
-                  case 'Home':
-                    break;
+                    case 'Home':
+                      break;
                   case 'Doctor':
                     router.push('../doctors/doctors');
                     break;
@@ -58,7 +41,7 @@ const Inicio = () => {
                 }
               }}
             >
-              {route.name === 'Home' && (
+            {route.name === 'Home' && (
                 <>
                   <MaterialIcons name="home" size={size} color={focused ? '#fff' : '#000'} />
                   {focused && <Text style={styles.tabText}>Home</Text>}
@@ -123,30 +106,10 @@ const Inicio = () => {
 };
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        backgroundColor: '#fff',
-        marginTop: 20, // Ajusta el valor según el espacio que desees
-      },
-      
-  headerTextTop: {
-    fontSize: 18,
-    color: '#333',
-  },
-  headerTextBottom: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  headerIcons: {
-    flexDirection: 'row',
-  },
-  icon: {
-    marginLeft: 15,
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tabBar: {
     backgroundColor: '#f4f4f4',
@@ -165,10 +128,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabItem: {
-    paddingTop: 0,
-    paddingBottom: 5,
+    paddingTop: 0, 
+    paddingBottom: 5, 
     borderRadius: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: 15,  
   },
   tabItemFocused: {
     backgroundColor: '#1E90FF',
