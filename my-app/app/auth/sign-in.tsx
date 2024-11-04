@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import "../../global.css";
 
 function SignInScreen() {
     const router = useRouter();

@@ -1,20 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import "../../global.css";
+
 
 export default function Index() {
     const router = useRouter();
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>DOCTOR'S POINT</Text>
-            <TouchableOpacity style={styles.signUpButton} onPress={() => router.push('/auth/sign-up')}>
-                <Text style={styles.signUpButtonText}>Sign Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.signInButton} onPress={() => router.push('/auth/sign-in')}>
-                <Text style={styles.signInButtonText}>Sign In</Text>
-            </TouchableOpacity>
+            <View style={styles.containerdoc}>
+                <Text style={styles.title}>DOCTOR'S POINT</Text>
+            </View>
+            <View style={styles.container}>
+                <TouchableOpacity style={styles.signUpButton} onPress={() => router.push('/auth/sign-up')}>
+                    <Text style={styles.signUpButtonText}>Sign Up</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.signInButton} onPress={() => router.push('/auth/sign-in')}>
+                    <Text style={styles.signInButtonText}>Sign In</Text>
+                </TouchableOpacity>
+            </View>
         </View>
+        
+        
     );
 }
 
@@ -25,6 +33,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#1A73E8', // Fondo azul con tonos
         paddingHorizontal: 20,
+    },
+    containerdoc: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#1A73E8', // Fondo azul con tonos
     },
     title: {
         fontSize: 24,
