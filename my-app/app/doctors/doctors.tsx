@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { MaterialIcons, FontAwesome, Feather } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 
-const Tab = createBottomTabNavigator();
+// Define el tipo de cada objeto en el arreglo de datos
+interface Doctor {
+  NPI: string;
+  FIRST_NAME: string;
+  LAST_NAME: string;
+  PROVIDER_TYPE_DESC: string;
+  STATE_CD: string;
+}
 
-const Inicio = () => {
+const DoctorScreen = () => {
+  const [data, setData] = useState<Doctor[]>([]);
+  const [loading, setLoading] = useState(true);
   const [menuVisible, setMenuVisible] = useState(false);
   const router = useRouter();
 
@@ -14,71 +22,72 @@ const Inicio = () => {
     setMenuVisible(!menuVisible);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://data.cms.gov/data-api/v1/dataset/2457ea29-fc82-48b0-86ec-3b0755de7515/data');
+        const json: Doctor[] = await response.json();
+        setData(json);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />;
+  }
+
   return (
-    <>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, size }) => (
-            <TouchableOpacity
-              style={[
-                styles.tabItem,
-                focused ? styles.tabItemFocused : null,
-                { flexDirection: 'row', alignItems: 'center' },
-              ]}
-              onPress={() => {
-                switch (route.name) {
-                    case 'Home':
-                      break;
-                  case 'Doctor':
-                    router.push('../doctors/doctors');
-                    break;
-                  case 'Notifications':
-                    router.push('../notifications/notifications');
-                    break;
-                  case 'Menu':
-                    toggleMenu();
-                    break;
-                }
-              }}
-            >
-            {route.name === 'Home' && (
-                <>
-                  <MaterialIcons name="home" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Home</Text>}
-                </>
-              )}
-              {route.name === 'Doctor' && (
-                <>
-                  <FontAwesome name="stethoscope" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Doctor</Text>}
-                </>
-              )}
-              {route.name === 'Notifications' && (
-                <>
-                  <Feather name="bell" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Notifications</Text>}
-                </>
-              )}
-              {route.name === 'Menu' && (
-                <>
-                  <MaterialIcons name="apps" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Menu</Text>}
-                </>
-              )}
-            </TouchableOpacity>
-          ),
-          tabBarActiveTintColor: '#fff',
-          tabBarInactiveTintColor: '#000',
-          tabBarStyle: styles.tabBar,
-          tabBarLabelStyle: { display: 'none' },
-          tabBarItemStyle: styles.tabItemWrapper,
-        })}
-      >
-        <Tab.Screen name="Home" component={View} options={{ tabBarLabel: 'Home' }} />
-        <Tab.Screen name="Doctor" component={View} options={{ tabBarLabel: 'Doctor' }} />
-        <Tab.Screen name="Notifications" component={View} options={{ tabBarLabel: 'Notifications' }} />
-        <Tab.Screen name="Menu" component={View} options={{ tabBarLabel: 'Menu' }} />
-      </Tab.Navigator>
+    <View style={styles.container}>
+      {/* Lista de doctores */}
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.NPI}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text style={styles.name}>{item.FIRST_NAME} {item.LAST_NAME}</Text>
+            <Text style={styles.details}>Specialty: {item.PROVIDER_TYPE_DESC}</Text>
+            <Text style={styles.details}>State: {item.STATE_CD}</Text>
+          </View>
+        )}
+      />
+
+      {/* Barra de navegación inferior manual */}
+      <View style={styles.tabBar}>
+        <TouchableOpacity
+          style={[styles.tabItem, styles.tabItemFocused]}
+          onPress={() => router.push('../doctors/doctors')}
+        >
+          <FontAwesome name="stethoscope" size={24} color="#fff" />
+          <Text style={styles.tabText}>Doctor</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => router.push('../home')}
+        >
+          <MaterialIcons name="home" size={24} color="#000" />
+          <Text style={styles.tabTextInactive}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => router.push('../notifications/notifications')}
+        >
+          <Feather name="bell" size={24} color="#000" />
+          <Text style={styles.tabTextInactive}>Notifications</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={toggleMenu}
+        >
+          <MaterialIcons name="apps" size={24} color="#000" />
+          <Text style={styles.tabTextInactive}>Menu</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Menú desplegable */}
       {menuVisible && (
@@ -101,19 +110,47 @@ const Inicio = () => {
           </TouchableOpacity>
         </View>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  container: {
+    flex: 1,
+    backgroundColor: '#E8F1FA',
+    padding: 10,
+  },
+  loader: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  itemContainer: {
+    backgroundColor: '#fff',
+    padding: 15,
+    marginBottom: 10,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  details: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
+  },
   tabBar: {
-    backgroundColor: '#f4f4f4',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingVertical: 15,
+    backgroundColor: '#f4f4f4',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     shadowColor: '#000',
@@ -121,31 +158,31 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -2 },
     shadowRadius: 5,
     elevation: 5,
-    marginBottom: 5,
-  },
-  tabItemWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   tabItem: {
-    paddingTop: 0, 
-    paddingBottom: 5, 
-    borderRadius: 30,
-    paddingHorizontal: 15,  
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10,
   },
   tabItemFocused: {
     backgroundColor: '#1E90FF',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     borderRadius: 20,
-    marginHorizontal: -10,
-    paddingVertical: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   tabText: {
     color: '#fff',
-    marginLeft: 8,
-    fontSize: 14,
+    fontSize: 12,
+    marginTop: 5,
+  },
+  tabTextInactive: {
+    color: '#000',
+    fontSize: 12,
+    marginTop: 5,
   },
   menuContainer: {
     position: 'absolute',
@@ -169,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Inicio;
+export default DoctorScreen;
