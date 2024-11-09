@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 import { db } from '../../constants/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
@@ -44,45 +44,87 @@ function SignUpScreen() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Crear Cuenta</Text>
-            <TextInput style={styles.input} placeholder="Nombre de usuario" value={username} onChangeText={setUsername} />
-            <TextInput style={styles.input} placeholder="Correo electrónico" keyboardType="email-address" value={email} onChangeText={setEmail} />
-            <TextInput style={styles.input} placeholder="Teléfono" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
-            <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry={true} value={password} onChangeText={setPassword} />
-            <TextInput style={styles.input} placeholder="Confirmar contraseña" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
-            <Button title="Registrarse" onPress={onSignUp} />
-            <TouchableOpacity onPress={() => router.push('../auth/sign-in')}>
-                <Text style={styles.link}>¿Ya tienes cuenta? Iniciar sesión</Text>
+        <ImageBackground
+            source={require('../../assets/images/Back2.png')} 
+            style={styles.container}
+            resizeMode="cover">
+
+            <View style={styles.container}>
+            <Text style={styles.title}>Create Account</Text>
+
+            <View style={styles.sigup}>
+                <Text>Already have an account?</Text>
+                <TouchableOpacity onPress={() => router.push('../auth/sign-in')}>
+                    <Text style={styles.link}>Sign In!</Text>
+                </TouchableOpacity>
+            </View>
+            <Text>Username</Text>
+            <TextInput style={styles.input} placeholder="" value={username} onChangeText={setUsername} />
+            <Text>Email</Text>
+            <TextInput style={styles.input} placeholder="" keyboardType="email-address" value={email} onChangeText={setEmail} />
+            <Text>Phone</Text>
+            <TextInput style={styles.input} placeholder="" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
+            <Text>Password</Text>
+            <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={password} onChangeText={setPassword} />
+            <Text>Confirm password</Text>
+            <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
+           
+            <TouchableOpacity style={styles.sign} onPress={onSignUp}>
+                <Text style={styles.buttonText}>Registrarse</Text>
             </TouchableOpacity>
+
         </View>
+
+        </ImageBackground>
+        
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginTop:100,
+        alignItems:"baseline",
     },
     input: {
-        width: '100%',
+        width: 300,
         padding: 10,
-        marginVertical: 10,
+        marginBottom: 15,
+        marginTop:5,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 8,
     },
     link: {
         color: '#1A73E8',
-        marginVertical: 10,
+        marginVertical: 5,
+        marginLeft:5,
     },
+    sign: {
+        width: 300,
+        backgroundColor: '#004aad',
+        padding: 10,
+        alignItems: 'center',
+        borderRadius: 5,
+        height: 45,
+        marginTop:30,
+      },
+      buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        textAlign:"justify",
+        fontWeight:"bold"
+      },
+      sigup: {
+        flexDirection: 'row',
+        alignItems: 'center', 
+        marginBottom:40,
+      },
 });
 
 export default SignUpScreen;

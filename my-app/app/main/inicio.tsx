@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, FontAwesome, Feather } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,  Image } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Tab = createBottomTabNavigator();
@@ -18,19 +18,25 @@ const Inicio = () => {
     <>
       {/* Encabezado superior con texto e iconos */}
       <View style={styles.header}>
-        <View>
-          <Text style={styles.headerTextTop}>Find Your</Text>
-          <Text style={styles.headerTextBottom}>Specialist</Text>
+            <View>
+                <Text style={styles.headerTextTop}>Find Your</Text>
+                <Text style={styles.headerTextBottom}>Specialist</Text>
+            </View>
+            <View style={styles.headerIcons}>
+                <TouchableOpacity onPress={() => router.push('../search')}>
+                    <Image
+                        source={require('../../assets/Icons/lupa.png')}
+                        style={styles.icon}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => router.push('../messages')}>
+                    <Image
+                        source={require('../../assets/Icons/mensaje.png')}
+                        style={styles.icon}
+                    />
+                </TouchableOpacity>
+            </View>
         </View>
-        <View style={styles.headerIcons}>
-          <TouchableOpacity onPress={() => router.push('../search')}>
-            <FontAwesome name="search" size={24} color="#1E90FF" style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('../messages')}>
-            <MaterialIcons name="chat" size={24} color="#1E90FF" style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-      </View>
 
       {/* Barra de navegación inferior */}
       <Tab.Navigator
@@ -123,31 +129,30 @@ const Inicio = () => {
 };
 
 const styles = StyleSheet.create({
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        backgroundColor: '#fff',
-        marginTop: 20, // Ajusta el valor según el espacio que desees
-      },
-      
-  headerTextTop: {
-    fontSize: 18,
-    color: '#333',
-  },
-  headerTextBottom: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  headerIcons: {
+  header: {
     flexDirection: 'row',
-  },
-  icon: {
-    marginLeft: 15,
-  },
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop:30,
+    padding: 20,
+},
+headerTextTop: {
+    fontSize: 20,
+    color: '#000000',
+},
+headerTextBottom: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#000000',
+},
+headerIcons: {
+    flexDirection: 'row',
+},
+icon: {
+    width: 24,
+    height: 24,
+    marginHorizontal: 10,
+},
   tabBar: {
     backgroundColor: '#f4f4f4',
     paddingVertical: 15,
