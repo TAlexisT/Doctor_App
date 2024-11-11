@@ -70,7 +70,7 @@ function SignUpScreen() {
             <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
            
             <TouchableOpacity style={styles.sign} onPress={onSignUp}>
-                <Text style={styles.buttonText}>Registrarse</Text>
+                <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
 
         </View>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     sign: {
         width: 300,
-        backgroundColor: '#004aad',
+        backgroundColor: '#2582ff',
         padding: 10,
         alignItems: 'center',
         borderRadius: 5,

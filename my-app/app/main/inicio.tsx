@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, FontAwesome, Feather } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity,  Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,  Image, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Tab = createBottomTabNavigator();
@@ -34,9 +34,29 @@ const Inicio = () => {
                         source={require('../../assets/Icons/mensaje.png')}
                         style={styles.icon}
                     />
+                    
                 </TouchableOpacity>
             </View>
         </View>
+
+        <View style={styles.contentContainer}>
+          <TouchableOpacity>
+            <ImageBackground
+            source={require('../../assets/images/card.png')}
+            style={styles.icon2}>
+              <Text style={styles.text}>Looking For Your Desire</Text>
+              <Text style={styles.text}>Specialist Doctor?</Text>
+              <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
+              <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+              <Text style={styles.text2}>Good Health Clinic</Text>
+            </ImageBackground>
+          </TouchableOpacity>
+        </View>
+
+
+        
+        
+      
 
       {/* Barra de navegación inferior */}
       <Tab.Navigator
@@ -209,6 +229,29 @@ icon: {
     fontSize: 16,
     marginLeft: 10,
   },
+
+
+ 
+  contentContainer: {
+    alignItems: 'center',
+  },
+  text: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    
+  },
+  icon2:{
+    width:320,
+    height:170,
+    overflow: 'hidden',
+    borderRadius: 15,
+    padding:20,
+  },
+  text2:{
+    fontSize:15,
+    color:"#ffffff"
+  }
 });
 
 export default Inicio;
