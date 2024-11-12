@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, Alert, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
-import { db } from '../../constants/firebaseConfig';
+import { db, auth } from '../../constants/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 function SignUpScreen() {
     const [username, setUsername] = useState('');
@@ -12,7 +13,7 @@ function SignUpScreen() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const router = useRouter();
 
-    const isValidEmail = (email: string): boolean => {
+    const isValidEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
@@ -29,17 +30,23 @@ function SignUpScreen() {
         }
 
         try {
+            // Crea el usuario en el autenticador de Firebase
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Guarda información adicional del usuario en Firestore
             await addDoc(collection(db, 'usuarios'), {
+                uid: user.uid,
                 username,
                 email,
                 phone,
-                password,
             });
+
             Alert.alert('Éxito', 'Cuenta creada exitosamente');
             router.push('../auth/sign-in');
         } catch (error) {
             Alert.alert('Error', 'Hubo un problema al crear la cuenta');
-            console.error("Error al agregar documento: ", error);
+            console.error("Error al crear la cuenta: ", error);
         }
     };
 
@@ -50,33 +57,30 @@ function SignUpScreen() {
             resizeMode="cover">
 
             <View style={styles.container}>
-            <Text style={styles.title}>Create Account</Text>
+                <Text style={styles.title}>Create Account</Text>
 
-            <View style={styles.sigup}>
-                <Text>Already have an account?</Text>
-                <TouchableOpacity onPress={() => router.push('../auth/sign-in')}>
-                    <Text style={styles.link}>Sign In!</Text>
+                <View style={styles.sigup}>
+                    <Text>Already have an account?</Text>
+                    <TouchableOpacity onPress={() => router.push('../auth/sign-in')}>
+                        <Text style={styles.link}>Sign In!</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text>Username</Text>
+                <TextInput style={styles.input} placeholder="" value={username} onChangeText={setUsername} />
+                <Text>Email</Text>
+                <TextInput style={styles.input} placeholder="" keyboardType="email-address" value={email} onChangeText={setEmail} />
+                <Text>Phone</Text>
+                <TextInput style={styles.input} placeholder="" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
+                <Text>Password</Text>
+                <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={password} onChangeText={setPassword} />
+                <Text>Confirm password</Text>
+                <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
+                
+                <TouchableOpacity style={styles.sign} onPress={onSignUp}>
+                    <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
-            <Text>Username</Text>
-            <TextInput style={styles.input} placeholder="" value={username} onChangeText={setUsername} />
-            <Text>Email</Text>
-            <TextInput style={styles.input} placeholder="" keyboardType="email-address" value={email} onChangeText={setEmail} />
-            <Text>Phone</Text>
-            <TextInput style={styles.input} placeholder="" keyboardType="phone-pad" value={phone} onChangeText={setPhone} />
-            <Text>Password</Text>
-            <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={password} onChangeText={setPassword} />
-            <Text>Confirm password</Text>
-            <TextInput style={styles.input} placeholder="" secureTextEntry={true} value={confirmPassword} onChangeText={setConfirmPassword} />
-           
-            <TouchableOpacity style={styles.sign} onPress={onSignUp}>
-                <Text style={styles.buttonText}>Sign Up</Text>
-            </TouchableOpacity>
-
-        </View>
-
         </ImageBackground>
-        
     );
 }
 

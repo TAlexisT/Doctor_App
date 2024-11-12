@@ -38,7 +38,6 @@ const Inicio = () => {
                 </TouchableOpacity>
             </View>
         </View>
-<<<<<<< Updated upstream
 
         <View style={styles.contentContainer}>
           <TouchableOpacity>
@@ -111,14 +110,6 @@ const Inicio = () => {
             </ImageBackground>
 
 
-=======
-        <View style={styles.headerIcons}>
-          <TouchableOpacity onPress={() => router.push('../search/search')}>
-            <FontAwesome name="search" size={24} color="#1E90FF" style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('../messages')}>
-            <MaterialIcons name="chat" size={24} color="#1E90FF" style={styles.icon} />
->>>>>>> Stashed changes
           </TouchableOpacity>
         </View>
 

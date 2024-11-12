@@ -1,6 +1,7 @@
-// Importa las funciones necesarias del SDK
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app"; // Importa initializeApp una sola vez
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Configuración de Firebase de tu aplicación
 const firebaseConfig = {
@@ -15,6 +16,9 @@ const firebaseConfig = {
 // Inicializa Firebase
 const app = initializeApp(firebaseConfig);
 
-// Inicializa Firestore y expórtalo
+// Inicializa Firebase Auth y Firestore
+const auth = getAuth(app);
 const db = getFirestore(app);
-export { db };
+
+// Exporta `auth` y `db` para usarlos en otros archivos
+export { auth, db };
