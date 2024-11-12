@@ -38,6 +38,7 @@ const Inicio = () => {
                 </TouchableOpacity>
             </View>
         </View>
+<<<<<<< Updated upstream
 
         <View style={styles.contentContainer}>
           <TouchableOpacity>
@@ -110,6 +111,14 @@ const Inicio = () => {
             </ImageBackground>
 
 
+=======
+        <View style={styles.headerIcons}>
+          <TouchableOpacity onPress={() => router.push('../search/search')}>
+            <FontAwesome name="search" size={24} color="#1E90FF" style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('../messages')}>
+            <MaterialIcons name="chat" size={24} color="#1E90FF" style={styles.icon} />
+>>>>>>> Stashed changes
           </TouchableOpacity>
         </View>
 
@@ -197,7 +206,7 @@ const Inicio = () => {
             <MaterialIcons name="settings" size={24} color="#fff" />
             <Text style={styles.menuText}>Settings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => router.push('../logout')}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => router.push('../auth/sign-in')}>
             <MaterialIcons name="logout" size={24} color="#fff" />
             <Text style={styles.menuText}>Log Out</Text>
           </TouchableOpacity>

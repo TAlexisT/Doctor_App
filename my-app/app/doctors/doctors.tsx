@@ -104,7 +104,7 @@ const DoctorScreen = () => {
             <MaterialIcons name="settings" size={24} color="#fff" />
             <Text style={styles.menuText}>Settings</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem} onPress={() => router.push('../logout')}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => router.push('../auth/sign-in')}>
             <MaterialIcons name="logout" size={24} color="#fff" />
             <Text style={styles.menuText}>Log Out</Text>
           </TouchableOpacity>
