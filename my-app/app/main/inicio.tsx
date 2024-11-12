@@ -41,22 +41,81 @@ const Inicio = () => {
 
         <View style={styles.contentContainer}>
           <TouchableOpacity>
+            
             <ImageBackground
             source={require('../../assets/images/card.png')}
             style={styles.icon2}>
-              <Text style={styles.text}>Looking For Your Desire</Text>
-              <Text style={styles.text}>Specialist Doctor?</Text>
-              <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
-              <Text style={styles.text2}>Medicine & Heart Spelist</Text>
-              <Text style={styles.text2}>Good Health Clinic</Text>
+
+              <View>
+                <Text style={styles.text}>Looking For Your Desire</Text>
+                <Text style={styles.text}>Specialist Doctor?</Text>
+                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
+                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+                <Text style={styles.text2}>Good Health Clinic</Text>
+              </View>
+              
+              <View>
+                <TouchableOpacity>
+                <Image
+                source={require('../../assets/images/doc1.png')}
+                style={styles.docinicio}
+                />
+                </TouchableOpacity>
+              </View>
             </ImageBackground>
+
+
+            <ImageBackground
+            source={require('../../assets/images/card.png')}
+            style={styles.icon2}>
+
+              <View>
+                <Text style={styles.text}>Looking For Your Desire</Text>
+                <Text style={styles.text}>Specialist Doctor?</Text>
+                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
+                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+                <Text style={styles.text2}>Good Health Clinic</Text>
+              </View>
+              
+              <View>
+                <TouchableOpacity>
+                <Image
+                source={require('../../assets/images/doc1.png')}
+                style={styles.docinicio}
+                />
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
+
+            <ImageBackground
+            source={require('../../assets/images/card.png')}
+            style={styles.icon2}>
+
+              <View>
+                <Text style={styles.text}>Looking For Your Desire</Text>
+                <Text style={styles.text}>Specialist Doctor?</Text>
+                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
+                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+                <Text style={styles.text2}>Good Health Clinic</Text>
+              </View>
+              
+              <View>
+                <TouchableOpacity>
+                <Image
+                source={require('../../assets/images/doc1.png')}
+                style={styles.docinicio}
+                />
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
+
+
           </TouchableOpacity>
         </View>
 
 
-        
-        
-      
+
+
 
       {/* Barra de navegación inferior */}
       <Tab.Navigator
@@ -247,11 +306,17 @@ icon: {
     overflow: 'hidden',
     borderRadius: 15,
     padding:20,
+    flexDirection: 'row',
+    margin:5,
   },
   text2:{
     fontSize:15,
     color:"#ffffff"
-  }
+  },
+  docinicio:{
+    width:140,
+    height:170,
+  },
 });
 
 export default Inicio;
