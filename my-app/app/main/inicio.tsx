@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, FontAwesome, Feather } from '@expo/vector-icons';
-import { View, Text, StyleSheet, TouchableOpacity,  Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ImageBackground, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const Tab = createBottomTabNavigator();
@@ -16,173 +16,138 @@ const Inicio = () => {
 
   return (
     <>
-      {/* Encabezado superior con texto e iconos */}
       <View style={styles.header}>
-            <View>
-                <Text style={styles.headerTextTop}>Find Your</Text>
-                <Text style={styles.headerTextBottom}>Specialist</Text>
-            </View>
-            <View style={styles.headerIcons}>
-                <TouchableOpacity onPress={() => router.push('../search')}>
-                    <Image
-                        source={require('../../assets/Icons/lupa.png')}
-                        style={styles.icon}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => router.push('../messages')}>
-                    <Image
-                        source={require('../../assets/Icons/mensaje.png')}
-                        style={styles.icon}
-                    />
-                    
-                </TouchableOpacity>
-            </View>
+        <View>
+          <Text style={styles.headerTextTop}>Find Your</Text>
+          <Text style={styles.headerTextBottom}>Specialist</Text>
         </View>
-
-        <View style={styles.contentContainer}>
-          <TouchableOpacity>
-            
-            <ImageBackground
-            source={require('../../assets/images/card.png')}
-            style={styles.icon2}>
-
-              <View>
-                <Text style={styles.text}>Looking For Your Desire</Text>
-                <Text style={styles.text}>Specialist Doctor?</Text>
-                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
-                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
-                <Text style={styles.text2}>Good Health Clinic</Text>
-              </View>
-              
-              <View>
-                <TouchableOpacity>
-                <Image
-                source={require('../../assets/images/doc1.png')}
-                style={styles.docinicio}
-                />
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-
-
-            <ImageBackground
-            source={require('../../assets/images/card.png')}
-            style={styles.icon2}>
-
-              <View>
-                <Text style={styles.text}>Looking For Your Desire</Text>
-                <Text style={styles.text}>Specialist Doctor?</Text>
-                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
-                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
-                <Text style={styles.text2}>Good Health Clinic</Text>
-              </View>
-              
-              <View>
-                <TouchableOpacity>
-                <Image
-                source={require('../../assets/images/doc1.png')}
-                style={styles.docinicio}
-                />
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-
-            <ImageBackground
-            source={require('../../assets/images/card.png')}
-            style={styles.icon2}>
-
-              <View>
-                <Text style={styles.text}>Looking For Your Desire</Text>
-                <Text style={styles.text}>Specialist Doctor?</Text>
-                <Text style={[styles.text,{ fontSize: 15, marginTop:30, marginBottom:5 }]}>Dr. Salina Zaman</Text>
-                <Text style={styles.text2}>Medicine & Heart Spelist</Text>
-                <Text style={styles.text2}>Good Health Clinic</Text>
-              </View>
-              
-              <View>
-                <TouchableOpacity>
-                <Image
-                source={require('../../assets/images/doc1.png')}
-                style={styles.docinicio}
-                />
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-
-
+        <View style={styles.headerIcons}>
+          <TouchableOpacity onPress={() => router.push('../search')}>
+            <Image source={require('../../assets/Icons/lupa.png')} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('../messages')}>
+            <Image source={require('../../assets/Icons/mensaje.png')} style={styles.icon} />
           </TouchableOpacity>
         </View>
+      </View>
 
+      {/* Añadir el ScrollView horizontal */}
+      <ScrollView horizontal={true} style={styles.scrollContainer} contentContainerStyle={{ paddingHorizontal: 10 }}>
+        
+        <TouchableOpacity>
+          <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
+            <View>
+              <Text style={styles.text}>Looking For Your Desire</Text>
+              <Text style={styles.text}>Specialist Doctor?</Text>
+              <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
+              <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+              <Text style={styles.text2}>Good Health Clinic</Text>
+            </View>
+            <View>
+                <Image source={require('../../assets/images/doc1.png')} style={styles.docinicio} />
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
+          
+        <TouchableOpacity>
+          <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
+            <View>
+              <Text style={styles.text}>Looking For Your Desire</Text>
+              <Text style={styles.text}>Specialist Doctor?</Text>
+              <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
+              <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+              <Text style={styles.text2}>Good Health Clinic</Text>
+            </View>
+            <View>
+                <Image source={require('../../assets/images/doc1.png')} style={styles.docinicio} />
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
 
+        <TouchableOpacity>
+          <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
+            <View>
+              <Text style={styles.text}>Looking For Your Desire</Text>
+              <Text style={styles.text}>Specialist Doctor?</Text>
+              <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
+              <Text style={styles.text2}>Medicine & Heart Spelist</Text>
+              <Text style={styles.text2}>Good Health Clinic</Text>
+            </View>
+            <View>
+                <Image source={require('../../assets/images/doc1.png')} style={styles.docinicio} />
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
+        
+      </ScrollView>
 
-
+      <View>
+        <Text>Categories</Text>
+      </View>
 
       {/* Barra de navegación inferior */}
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, size }) => (
-            <TouchableOpacity
-              style={[
-                styles.tabItem,
-                focused ? styles.tabItemFocused : null,
-                { flexDirection: 'row', alignItems: 'center' },
-              ]}
-              onPress={() => {
-                switch (route.name) {
-                  case 'Home':
-                    break;
-                  case 'Doctor':
-                    router.push('../doctors/doctors');
-                    break;
-                  case 'Notifications':
-                    router.push('../notifications/notifications');
-                    break;
-                  case 'Menu':
-                    toggleMenu();
-                    break;
-                }
-              }}
-            >
-              {route.name === 'Home' && (
-                <>
-                  <MaterialIcons name="home" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Home</Text>}
-                </>
-              )}
-              {route.name === 'Doctor' && (
-                <>
-                  <FontAwesome name="stethoscope" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Doctor</Text>}
-                </>
-              )}
-              {route.name === 'Notifications' && (
-                <>
-                  <Feather name="bell" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Notifications</Text>}
-                </>
-              )}
-              {route.name === 'Menu' && (
-                <>
-                  <MaterialIcons name="apps" size={size} color={focused ? '#fff' : '#000'} />
-                  {focused && <Text style={styles.tabText}>Menu</Text>}
-                </>
-              )}
-            </TouchableOpacity>
-          ),
-          tabBarActiveTintColor: '#fff',
-          tabBarInactiveTintColor: '#000',
-          tabBarStyle: styles.tabBar,
-          tabBarLabelStyle: { display: 'none' },
-          tabBarItemStyle: styles.tabItemWrapper,
-        })}
-      >
+      <Tab.Navigator screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size }) => (
+          <TouchableOpacity
+            style={[
+              styles.tabItem,
+              focused ? styles.tabItemFocused : null,
+              { flexDirection: 'row', alignItems: 'center' },
+            ]}
+            onPress={() => {
+              switch (route.name) {
+                case 'Home':
+                  break;
+                case 'Doctor':
+                  router.push('../doctors/doctors');
+                  break;
+                case 'Notifications':
+                  router.push('../notifications/notifications');
+                  break;
+                case 'Menu':
+                  toggleMenu();
+                  break;
+              }
+            }}
+          >
+            {route.name === 'Home' && (
+              <>
+                <MaterialIcons name="home" size={size} color={focused ? '#fff' : '#000'} />
+                {focused && <Text style={styles.tabText}>Home</Text>}
+              </>
+            )}
+            {route.name === 'Doctor' && (
+              <>
+                <FontAwesome name="stethoscope" size={size} color={focused ? '#fff' : '#000'} />
+                {focused && <Text style={styles.tabText}>Doctor</Text>}
+              </>
+            )}
+            {route.name === 'Notifications' && (
+              <>
+                <Feather name="bell" size={size} color={focused ? '#fff' : '#000'} />
+                {focused && <Text style={styles.tabText}>Notifications</Text>}
+              </>
+            )}
+            {route.name === 'Menu' && (
+              <>
+                <MaterialIcons name="apps" size={size} color={focused ? '#fff' : '#000'} />
+                {focused && <Text style={styles.tabText}>Menu</Text>}
+              </>
+            )}
+          </TouchableOpacity>
+        ),
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#000',
+        tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: { display: 'none' },
+        tabBarItemStyle: styles.tabItemWrapper,
+      })}>
         <Tab.Screen name="Home" component={View} options={{ tabBarLabel: 'Home' }} />
         <Tab.Screen name="Doctor" component={View} options={{ tabBarLabel: 'Doctor' }} />
         <Tab.Screen name="Notifications" component={View} options={{ tabBarLabel: 'Notifications' }} />
         <Tab.Screen name="Menu" component={View} options={{ tabBarLabel: 'Menu' }} />
       </Tab.Navigator>
 
-      {/* Menú desplegable */}
       {menuVisible && (
         <View style={styles.menuContainer}>
           <TouchableOpacity style={styles.menuItem} onPress={() => router.push('../appointment')}>
@@ -289,8 +254,9 @@ icon: {
     marginLeft: 10,
   },
 
-
- 
+  scrollContainer: {
+    marginTop: 20,
+  },
   contentContainer: {
     alignItems: 'center',
   },
