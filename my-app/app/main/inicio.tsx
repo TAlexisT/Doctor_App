@@ -34,9 +34,9 @@ const Inicio = () => {
       {/* Añadir el ScrollView horizontal */}
       <ScrollView horizontal={true} style={styles.scrollContainer} contentContainerStyle={{ paddingHorizontal: 10 }}>
         
-        <TouchableOpacity>
+        <TouchableOpacity style={{height:50}}>
           <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
-            <View>
+            <View style={{height:50}}>
               <Text style={styles.text}>Looking For Your Desire</Text>
               <Text style={styles.text}>Specialist Doctor?</Text>
               <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
@@ -49,9 +49,9 @@ const Inicio = () => {
           </ImageBackground>
         </TouchableOpacity>
           
-        <TouchableOpacity>
+        <TouchableOpacity style={{height:50}}>
           <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
-            <View>
+            <View style={{height:50}}>
               <Text style={styles.text}>Looking For Your Desire</Text>
               <Text style={styles.text}>Specialist Doctor?</Text>
               <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
@@ -64,9 +64,9 @@ const Inicio = () => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity style={{height:50}}>
           <ImageBackground source={require('../../assets/images/card.png')} style={styles.icon2}>
-            <View>
+            <View style={{height:50}}>
               <Text style={styles.text}>Looking For Your Desire</Text>
               <Text style={styles.text}>Specialist Doctor?</Text>
               <Text style={[styles.text, { fontSize: 15, marginTop: 30, marginBottom: 5 }]}>Dr. Salina Zaman</Text>
